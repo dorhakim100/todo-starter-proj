@@ -12,6 +12,7 @@ import { todoService } from '../services/todo.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 import { Loader } from './Loader.jsx'
+import { swal } from '../lib/swal.js'
 
 export function TodoIndex() {
   // const [todos, setTodos] = useState(null)
@@ -47,6 +48,23 @@ export function TodoIndex() {
   }, [filterBy])
 
   function onRemoveTodo(todoId) {
+    Swal.fire({
+      title: 'Do you want to delete the todo?',
+      showDenyButton: true,
+      //   showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Removed!', '', 'success')
+        removeTodo(todoId)
+          .then(() => showSuccessMsg('Todo removed.'))
+          .catch((err) => showErrorMsg('Error'))
+      } else if (result.isDenied) {
+        Swal.fire('Todo is not removed', '', 'info')
+      }
+    })
     // todoService
     //   .remove(todoId)
     //   .then(() => {
@@ -57,9 +75,6 @@ export function TodoIndex() {
     //     console.log('err:', err)
     //     showErrorMsg('Cannot remove todo ' + todoId)
     //   })
-    removeTodo(todoId)
-      .then(() => showSuccessMsg('Todo removed.'))
-      .catch((err) => showErrorMsg('Error'))
   }
 
   function onToggleTodo(todo) {
@@ -85,7 +100,7 @@ export function TodoIndex() {
       .catch((err) => showSuccessMsg('Error updating todo...'))
   }
 
-  if (isLoading) return <Loader></Loader>
+  if (isLoading) return <Loader />
   return (
     <section className='todo-index'>
       <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />

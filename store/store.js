@@ -1,4 +1,5 @@
 import { userService } from '../services/user.service.js'
+import { todoService } from '../services/todo.service.js'
 
 const { createStore } = Redux
 
@@ -15,6 +16,7 @@ export const SET_USER = 'SET_USER'
 const initialState = {
   todos: [],
   isLoading: true,
+  filterBy: todoService.getDefaultFilter(),
   loggedInUser: userService.getLoggedinUser(),
 }
 
