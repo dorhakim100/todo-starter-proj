@@ -3,6 +3,7 @@ const { useSelector, useDispatch } = ReactRedux
 const { Link, useSearchParams } = ReactRouterDOM
 
 import { loadTodos, removeTodo, saveTodo } from '../store/todo.actions.js'
+import { setIsLoadingFalse, setIsLoadingTrue } from '../store/todo.actions.js'
 
 import { TodoFilter } from '../cmps/TodoFilter.jsx'
 import { TodoList } from '../cmps/TodoList.jsx'
@@ -10,11 +11,15 @@ import { DataTable } from '../cmps/data-table/DataTable.jsx'
 import { todoService } from '../services/todo.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
+import { Loader } from './Loader.jsx'
+
 export function TodoIndex() {
   // const [todos, setTodos] = useState(null)
 
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.todos)
+
+  const isLoading = useSelector((state) => state.isLoading)
 
   // Special hook for accessing search-params:
   const [searchParams, setSearchParams] = useSearchParams()
@@ -32,7 +37,12 @@ export function TodoIndex() {
     //         showErrorMsg('Cannot load todos')
     //     })
     loadTodos()
-      .then((todos) => showSuccessMsg('Todos loaded successfully'))
+      .then((todos) => {
+        // console.log(isLoading)
+        setIsLoadingFalse(isLoading)
+        console.log(isLoading)
+        showSuccessMsg('Todos loaded successfully')
+      })
       .catch((err) => showErrorMsg('Error'))
   }, [filterBy])
 
@@ -75,7 +85,7 @@ export function TodoIndex() {
       .catch((err) => showSuccessMsg('Error updating todo...'))
   }
 
-  if (!todos) return <div>Loading...</div>
+  if (isLoading) return <Loader></Loader>
   return (
     <section className='todo-index'>
       <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />

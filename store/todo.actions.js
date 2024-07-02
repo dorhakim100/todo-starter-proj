@@ -4,6 +4,8 @@ import {
   REMOVE_TODO,
   SET_TODOS,
   UPDATE_TODO,
+  IS_LOADING_TRUE,
+  IS_LOADING_FALSE,
   store,
 } from './store.js'
 
@@ -25,4 +27,13 @@ export function saveTodo(todo) {
   return todoService
     .save(todo)
     .then((savedTodo) => store.dispatch({ type, savedTodo }))
+}
+
+export function setIsLoadingTrue(isLoading) {
+  const newIsLoading = true
+  return store.dispatch({ type: IS_LOADING_TRUE, newIsLoading })
+}
+export function setIsLoadingFalse(isLoading) {
+  const newIsLoading = false
+  return store.dispatch({ type: IS_LOADING_FALSE, newIsLoading })
 }

@@ -7,10 +7,14 @@ export const REMOVE_TODO = 'REMOVE_TODO'
 export const ADD_TODO = 'ADD_TODO'
 export const UPDATE_TODO = 'UPDATE_TODO'
 
+export const IS_LOADING_TRUE = 'IS_LOADING_TRUE'
+export const IS_LOADING_FALSE = 'IS_LOADING_FALSE'
+
 export const SET_USER = 'SET_USER'
 
 const initialState = {
   todos: [],
+  isLoading: true,
   loggedInUser: userService.getLoggedinUser(),
 }
 
@@ -28,7 +32,10 @@ function appReducer(state = initialState, action = {}) {
         todo._id === action.car._id ? action.car : car
       )
       return { ...state, todos: action.todos }
-
+    case IS_LOADING_TRUE:
+      return { ...state, isLoading: action.newIsLoading }
+    case IS_LOADING_FALSE:
+      return { ...state, isLoading: action.newIsLoading }
     default:
       return state
   }
