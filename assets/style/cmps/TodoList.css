@@ -6,10 +6,23 @@
     gap: 15px;
 }
 
-.todo-list li {
+.todo-list > todo {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--clr1bg);
+    /* background-color: var(--clr1bg); */
+}
+
+
+.light-importance{
+    background-color: #96ceb4;
+}
+
+.mid-importance{
+    background-color: #ffcc5c;
+}
+
+.high-importance{
+    background-color: #d96459;
 }
