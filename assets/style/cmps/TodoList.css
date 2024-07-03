@@ -16,13 +16,13 @@
 
 
 .light-importance{
-    background-color: #96ceb4;
+    background-color: var(--light-importance);
 }
 
 .mid-importance{
-    background-color: #ffcc5c;
+    background-color: var(--mid-importance);
 }
 
 .high-importance{
-    background-color: #d96459;
+    background-color: var(--high-importance);
 }

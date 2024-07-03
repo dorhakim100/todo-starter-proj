@@ -13,6 +13,8 @@ export const IS_LOADING_FALSE = 'IS_LOADING_FALSE'
 
 export const SET_USER = 'SET_USER'
 
+export const SET_FILTER = 'SET_FILTER'
+
 const initialState = {
   todos: [],
   isLoading: true,
@@ -38,6 +40,8 @@ function appReducer(state = initialState, action = {}) {
       return { ...state, isLoading: action.newIsLoading }
     case IS_LOADING_FALSE:
       return { ...state, isLoading: action.newIsLoading }
+    case SET_FILTER:
+      return { ...state, filterBy: action.newFilter }
     default:
       return state
   }

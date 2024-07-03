@@ -2,17 +2,34 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    padding: 15px;
+    margin: 5px;
+    border-radius: 5px;
+
 }
 .todo-details h1 {
-    color: var(--clr1);
+    /* color: var(--clr1); */
     font-size: 2em;
     
 }
 .todo-details h5 {
-    color: var(--clr2);
+    /* color: var(--clr2); */
 }
 .todo-details img {
     max-width: 200px;
     display: block;
     margin: auto;
+}
+
+.light-importance{
+    background-color: var(--light-importance);
+}
+
+.mid-importance{
+    background-color: var(--mid-importance);
+}
+
+.high-importance{
+    background-color: var(--high-importance);
 }

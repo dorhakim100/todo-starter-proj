@@ -11,4 +11,8 @@
   --gray2: rgb(155, 155, 155);
   --gray3: rgb(44, 44, 44);
 
+  --light-importance: #96ceb4;
+  --mid-importance: #ffcc5c;
+  --high-importance: #d96459;
+
 } 

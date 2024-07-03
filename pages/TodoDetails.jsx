@@ -40,7 +40,18 @@ export function TodoDetails() {
 
   if (!todo || isLoading) return <Loader />
   return (
-    <section className='todo-details'>
+    <section
+      className={
+        'todo-details' +
+        (todo.importance <= 3
+          ? ' light-importance'
+          : undefined || todo.importance <= 7
+          ? ' mid-importance'
+          : undefined || todo.importance <= 10
+          ? ' high-importance'
+          : undefined)
+      }
+    >
       <h1 className={todo.isDone ? 'done' : ''}>{todo.txt}</h1>
       <h2>{todo.isDone ? 'Done!' : 'In your list'}</h2>
 

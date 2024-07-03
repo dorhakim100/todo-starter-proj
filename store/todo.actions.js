@@ -6,6 +6,7 @@ import {
   UPDATE_TODO,
   IS_LOADING_TRUE,
   IS_LOADING_FALSE,
+  SET_FILTER,
   store,
 } from './store.js'
 
@@ -36,4 +37,10 @@ export function setIsLoadingTrue(isLoading) {
 export function setIsLoadingFalse(isLoading) {
   const newIsLoading = false
   return store.dispatch({ type: IS_LOADING_FALSE, newIsLoading })
+}
+
+export function setFilterBy(filterBy) {
+  const newFilter = filterBy
+  console.log(newFilter)
+  return store.dispatch({ type: SET_FILTER, newFilter })
 }

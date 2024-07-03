@@ -27,7 +27,8 @@ export function TodoIndex() {
 
   const defaultFilter = todoService.getFilterFromSearchParams(searchParams)
 
-  const [filterBy, setFilterBy] = useState(defaultFilter)
+  // const [filterBy, setFilterBy] = useState(defaultFilter)
+  const filterBy = useSelector((state) => state.filterBy)
 
   useEffect(() => {
     setSearchParams(filterBy)
@@ -37,7 +38,7 @@ export function TodoIndex() {
     //         console.eror('err:', err)
     //         showErrorMsg('Cannot load todos')
     //     })
-    loadTodos()
+    loadTodos(filterBy)
       .then((todos) => {
         // console.log(isLoading)
         setIsLoadingFalse(isLoading)
@@ -103,7 +104,7 @@ export function TodoIndex() {
   if (isLoading) return <Loader />
   return (
     <section className='todo-index'>
-      <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
+      <TodoFilter filterBy={filterBy} />
       <div>
         <Link to='/todo/edit' className='btn'>
           Add Todo
