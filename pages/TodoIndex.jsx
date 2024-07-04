@@ -42,7 +42,6 @@ export function TodoIndex() {
       .then((todos) => {
         // console.log(isLoading)
         setIsLoadingFalse(isLoading)
-        console.log(isLoading)
         showSuccessMsg('Todos loaded successfully')
       })
       .catch((err) => showErrorMsg('Error'))

@@ -41,6 +41,5 @@ export function setIsLoadingFalse(isLoading) {
 
 export function setFilterBy(filterBy) {
   const newFilter = filterBy
-  console.log(newFilter)
   return store.dispatch({ type: SET_FILTER, newFilter })
 }

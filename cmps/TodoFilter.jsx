@@ -19,6 +19,7 @@ export function TodoFilter({ filterBy }) {
 
   useEffect(() => {
     // Notify parent
+    filterBy = filterByToEdit
     setFilterBy(filterByToEdit)
   }, [filterByToEdit])
 
@@ -72,6 +73,8 @@ export function TodoFilter({ filterBy }) {
       default:
         break
     }
+
+    setFilterByToEdit({ ...filterByToEdit, filterActiveDone: sortBy })
   }
 
   const { txt, importance } = filterByToEdit
