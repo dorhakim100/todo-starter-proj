@@ -4,3 +4,33 @@
     margin: 1em 0;
 }
 
+.sorting-buttons-container{
+    display: flex;
+    gap: 1em;
+
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.sorting-container>input[type='checkbox']{
+    display: none;
+}
+
+.sorting-container{
+    display: flex;
+    align-items: center;
+    
+}
+
+.sorting-container>*{
+    cursor: pointer;
+    background-color: var(--mid-importance);
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+.sorting-container:has(input:checked) label{
+    background-color: var(--high-importance);
+}
