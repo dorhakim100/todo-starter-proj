@@ -1,18 +1,44 @@
 .progress-bar{
     background-color: rgb(36, 36, 36);
-    border-radius: 15px;
+    border-radius: 25px;
     /* position: absolute; */
+
+    
+}
+
+.progress-bar>div{
+    
+    display: flex;
+
 }
 
 .progress{
     color: black;
     background-color: aliceblue;
-    border-radius: 15px;
+    border-radius: 25px;
     position: relative;
-    top: 2px;
-    left: 1px;
+    /* top: 2px; */
+    /* left: 1px; */
     height: 20px;
-    /* width: 100%; */
+
+    border: 2px solid royalblue;
+    align-self: center;
+    width: 0px;
+    transition: 0.4;
+}
+
+canvas{
+    transition: 0.4;
+
+}
+
+
+
+.percentage{
+    position: absolute;
+    left: 50%;
+
+    align-self: center;
 }
 
 .bad{

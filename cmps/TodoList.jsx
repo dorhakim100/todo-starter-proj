@@ -10,11 +10,11 @@ export function TodoList({ todos, onRemoveTodo, onToggleTodo }) {
           key={todo._id}
           className={
             todo.importance <= 3
-              ? ' light-importance'
+              ? 'todo light-importance'
               : undefined || todo.importance <= 7
-              ? ' mid-importance'
+              ? 'todo mid-importance'
               : undefined || todo.importance <= 10
-              ? ' high-importance'
+              ? 'todo high-importance'
               : undefined
           }
         >

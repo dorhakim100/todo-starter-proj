@@ -9,12 +9,19 @@ import { LoginSignup } from './LoginSignup.jsx'
 import { showErrorMsg } from '../services/event-bus.service.js'
 import { loadTodos } from '../store/todo.actions.js'
 
+import { login } from '../store/user.actions.js'
+import { signup } from '../store/user.actions.js'
+import { logout } from '../store/user.actions.js'
+
 export function AppHeader() {
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.todos)
+  const allTodos = todos
 
   const navigate = useNavigate()
   const [user, setUser] = useState(userService.getLoggedinUser())
+
+  // const user = useSelector((state) => state.loggedInUser)
 
   const [width, setWidth] = useState(0)
   //   const [height, setHeight] = useState(0);
@@ -26,22 +33,30 @@ export function AppHeader() {
 
   // responsive width and height
   useEffect(() => {
-    loadTodos({ txt: '', importance: 0, filterActiveDone: '' }).then((data) => {
-      const todos = data.todos
-      const doneTodos = todos.filter((todo) => todo.isDone)
-      setPercentage((doneTodos.length * 100) / todos.length)
-      const barWidth = ref.current.clientWidth - 50
-      canvasRef.current.style.width =
-        (barWidth * doneTodos.length) / todos.length + 'px'
-      setWidth((barWidth * doneTodos.length) / todos.length)
-    })
-  }, [todos])
+    // loadTodos({ txt: '', importance: 0, filterActiveDone: '' }).then((data) => {
+    // const todos = data.todos
+    const doneTodos = allTodos.filter((todo) => todo.isDone)
+    setPercentage((doneTodos.length * 100) / todos.length)
+    const barWidth = ref.current.clientWidth - 50
+    canvasRef.current.style.transition = '1.8s'
+    canvasRef.current.style.width =
+      (barWidth * doneTodos.length) / todos.length + 'px'
+    // setWidth((barWidth * doneTodos.length) / todos.length)
+    // })
+  }, [todos.length])
 
   const displayWidth = Math.floor(pixelRatio * width)
 
   function onLogout() {
-    userService
-      .logout()
+    // userService
+    //   .logout()
+    //   .then(() => {
+    //     onSetUser(null)
+    //   })
+    //   .catch((err) => {
+    //     showErrorMsg('OOPs try again')
+    //   })
+    logout()
       .then(() => {
         onSetUser(null)
       })
@@ -52,7 +67,8 @@ export function AppHeader() {
 
   function onSetUser(user) {
     setUser(user)
-    navigate('/')
+    // console.log(user)
+    navigate(`/`)
   }
 
   return (
@@ -84,7 +100,9 @@ export function AppHeader() {
             width={`${width}px`}
             className={percentage < 70 ? 'progress bad' : 'progress good'}
           ></canvas>
-          <span>{`${percentage}%`}</span>
+          <span className='percentage'>
+            {percentage ? `${Math.floor(percentage)}%` : '0%'}
+          </span>
         </div>
       </div>
       <UserMsg />

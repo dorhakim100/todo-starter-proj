@@ -6,13 +6,14 @@
     gap: 15px;
 }
 
-.todo-list > todo {
+.todo-list > .todo {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     /* background-color: var(--clr1bg); */
 }
+
 
 
 .light-importance{

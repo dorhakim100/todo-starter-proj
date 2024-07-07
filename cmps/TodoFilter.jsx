@@ -20,7 +20,7 @@ export function TodoFilter({ filterBy }) {
   useEffect(() => {
     // Notify parent
     filterBy = filterByToEdit
-    setFilterBy(filterByToEdit)
+    setFilterBy(filterBy)
   }, [filterByToEdit])
 
   function handleChange({ target }) {

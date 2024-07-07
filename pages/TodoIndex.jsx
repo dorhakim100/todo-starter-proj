@@ -31,7 +31,9 @@ export function TodoIndex() {
   const filterBy = useSelector((state) => state.filterBy)
 
   useEffect(() => {
+    console.log(filterBy)
     setSearchParams(filterBy)
+    console.log(filterBy)
     // todoService.query(filterBy)
     //     .then(todos => setTodos(todos))
     //     .catch(err => {
@@ -40,6 +42,7 @@ export function TodoIndex() {
     //     })
     loadTodos(filterBy)
       .then((todos) => {
+        console.log(todos)
         // console.log(isLoading)
         setIsLoadingFalse(isLoading)
         showSuccessMsg('Todos loaded successfully')
@@ -78,6 +81,7 @@ export function TodoIndex() {
   }
 
   function onToggleTodo(todo) {
+    console.log(todo)
     const todoToSave = { ...todo, isDone: !todo.isDone }
     // todoService
     //   .save(todoToSave)
