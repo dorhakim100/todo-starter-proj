@@ -62,6 +62,7 @@ function remove(todoId) {
 }
 
 function save(todo) {
+  console.log(todo)
   if (todo._id) {
     // TODO - updatable fields
     todo.updatedAt = Date.now()

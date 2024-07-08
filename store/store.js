@@ -32,10 +32,16 @@ function appReducer(state = initialState, action = {}) {
     case ADD_TODO:
       return { ...state, todos: [...state.todos, action.todo] }
     case UPDATE_TODO:
-      var todos = state.todos.map((todo) =>
-        todo._id === action.car._id ? action.car : car
-      )
-      return { ...state, todos: action.todos }
+      console.log(state.todos)
+      console.log(action)
+      var todos = state.todos
+      const newTodos = todos.map((todo) => {
+        if (todo._id === action.savedTodo._id) {
+          return action.savedTodo
+        } else return todo
+      })
+
+      return { ...state, newTodos }
     case IS_LOADING_TRUE:
       return { ...state, isLoading: action.newIsLoading }
     case IS_LOADING_FALSE:

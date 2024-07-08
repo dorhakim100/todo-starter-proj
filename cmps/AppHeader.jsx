@@ -43,7 +43,7 @@ export function AppHeader() {
       (barWidth * doneTodos.length) / todos.length + 'px'
     // setWidth((barWidth * doneTodos.length) / todos.length)
     // })
-  }, [todos.length])
+  }, [todos.length, todos])
 
   const displayWidth = Math.floor(pixelRatio * width)
 

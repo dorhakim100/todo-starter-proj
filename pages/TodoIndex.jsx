@@ -83,6 +83,7 @@ export function TodoIndex() {
   function onToggleTodo(todo) {
     console.log(todo)
     const todoToSave = { ...todo, isDone: !todo.isDone }
+    todoToSave._id = todo._id
     // todoService
     //   .save(todoToSave)
     //   .then((savedTodo) => {
@@ -100,8 +101,14 @@ export function TodoIndex() {
     //     showErrorMsg('Cannot toggle todo ' + todoId)
     //   })
     saveTodo(todoToSave)
-      .then((savedTodo) => showSuccessMsg('Updated todo'))
-      .catch((err) => showSuccessMsg('Error updating todo...'))
+      .then((savedTodo) => {
+        loadTodos(filterBy)
+        showSuccessMsg('Updated todo')
+      })
+      .catch((err) => {
+        showSuccessMsg('Error updating todo...')
+        console.log(err)
+      })
   }
 
   if (isLoading) return <Loader />
