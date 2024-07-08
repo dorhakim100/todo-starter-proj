@@ -2,6 +2,7 @@ import { TodoPreview } from './TodoPreview.jsx'
 const { Link } = ReactRouterDOM
 
 export function TodoList({ todos, onRemoveTodo, onToggleTodo }) {
+  console.log(todos)
   return (
     <ul className='todo-list'>
       {todos.map((todo) => (

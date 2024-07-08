@@ -23,7 +23,9 @@ export function removeTodo(todoId) {
 }
 
 export function saveTodo(todo) {
+  console.log(todo)
   const type = todo._id ? UPDATE_TODO : ADD_TODO
+  console.log(type)
 
   return todoService
     .save(todo)

@@ -28,20 +28,50 @@ function appReducer(state = initialState, action = {}) {
       return { ...state, todos: action.todos }
     case REMOVE_TODO:
       var todos = state.todos.filter((todo) => todo._id !== action.todoId)
+
+      if (state.loggedInUser) {
+        if (!state.loggedInUser.activities) {
+          state.loggedInUser.activities = []
+        }
+        state.loggedInUser.activities.push(
+          `Removed Todo ${action.todoId} at ${new Date()}`
+        )
+        console.log(state.loggedInUser)
+      }
       return { ...state, todos }
     case ADD_TODO:
-      return { ...state, todos: [...state.todos, action.todo] }
+      if (state.loggedInUser) {
+        if (!state.loggedInUser.activities) {
+          state.loggedInUser.activities = []
+        }
+        state.loggedInUser.activities.push(
+          `Added Todo ${action.savedTodo._id} at ${new Date(
+            action.savedTodo.updatedAt
+          )}`
+        )
+        console.log(state.loggedInUser)
+      }
+      return { ...state, todos: [...state.todos, action.savedTodo] }
     case UPDATE_TODO:
-      console.log(state.todos)
-      console.log(action)
+      console.log('bla')
       var todos = state.todos
       const newTodos = todos.map((todo) => {
         if (todo._id === action.savedTodo._id) {
           return action.savedTodo
         } else return todo
       })
+      if (state.loggedInUser) {
+        if (!state.loggedInUser.activities) {
+          state.loggedInUser.activities = []
+        }
+        state.loggedInUser.activities.push(
+          `Updated Todo ${action.savedTodo._id} at ${new Date(
+            action.savedTodo.updatedAt
+          )}`
+        )
+      }
 
-      return { ...state, newTodos }
+      return { ...state, todos: newTodos }
     case IS_LOADING_TRUE:
       return { ...state, isLoading: action.newIsLoading }
     case IS_LOADING_FALSE:

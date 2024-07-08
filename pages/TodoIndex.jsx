@@ -19,6 +19,7 @@ export function TodoIndex() {
 
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.todos)
+  console.log(todos)
 
   const isLoading = useSelector((state) => state.isLoading)
 
@@ -31,9 +32,7 @@ export function TodoIndex() {
   const filterBy = useSelector((state) => state.filterBy)
 
   useEffect(() => {
-    console.log(filterBy)
     setSearchParams(filterBy)
-    console.log(filterBy)
     // todoService.query(filterBy)
     //     .then(todos => setTodos(todos))
     //     .catch(err => {
