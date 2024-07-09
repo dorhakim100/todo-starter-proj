@@ -1,6 +1,10 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
+import { userService } from './user.service.js'
+
+import { STORAGE_KEY_LOGGEDIN } from './user.service.js'
+
 const TODO_KEY = 'todoDB'
 _createTodos()
 
@@ -58,18 +62,42 @@ function get(todoId) {
 }
 
 function remove(todoId) {
+  const loggedInUser = userService.getLoggedinUser()
+  if (loggedInUser) {
+    if (!loggedInUser.activities) {
+      loggedInUser.activities = []
+    }
+    loggedInUser.activities.push(`Removed Todo ${todoId} at ${new Date()}`)
+  }
+  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
+
+  userService.updateUserDetails(loggedInUser)
   return storageService.remove(TODO_KEY, todoId)
 }
 
 function save(todo) {
   console.log(todo)
+  const loggedInUser = userService.getLoggedinUser()
+  if (loggedInUser) {
+    if (!loggedInUser.activities) {
+      loggedInUser.activities = []
+    }
+  }
   if (todo._id) {
     // TODO - updatable fields
     todo.updatedAt = Date.now()
+    loggedInUser.activities.push(`Updated Todo ${todo._id} at ${new Date()}`)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
+
+    userService.updateUserDetails(loggedInUser)
     return storageService.put(TODO_KEY, todo)
   } else {
     todo.createdAt = todo.updatedAt = Date.now()
 
+    loggedInUser.activities.push(`Created Todo at ${new Date()}`)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
+
+    userService.updateUserDetails(loggedInUser)
     return storageService.post(TODO_KEY, todo)
   }
 }

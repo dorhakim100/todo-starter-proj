@@ -14,6 +14,7 @@ export function TodoDetails() {
   const navigate = useNavigate()
 
   const isLoading = useSelector((state) => state.isLoading)
+  const user = useSelector((state) => state.loggedInUser)
 
   useEffect(() => {
     loadTodo().then(() => {
@@ -51,6 +52,9 @@ export function TodoDetails() {
           ? ' high-importance'
           : undefined)
       }
+      style={{
+        color: `${user.color}`,
+      }}
     >
       <h1 className={todo.isDone ? 'done' : ''}>{todo.txt}</h1>
       <h2>{todo.isDone ? 'Done!' : 'In your list'}</h2>

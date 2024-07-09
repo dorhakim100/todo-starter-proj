@@ -1,7 +1,9 @@
 import { TodoPreview } from './TodoPreview.jsx'
 const { Link } = ReactRouterDOM
+const { useSelector, useDispatch } = ReactRedux
 
 export function TodoList({ todos, onRemoveTodo, onToggleTodo }) {
+  const user = useSelector((state) => state.loggedInUser)
   console.log(todos)
   return (
     <ul className='todo-list'>

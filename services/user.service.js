@@ -8,9 +8,10 @@ export const userService = {
   getById,
   query,
   getEmptyCredentials,
+  updateUserDetails,
 }
-const STORAGE_KEY_LOGGEDIN = 'user'
-const STORAGE_KEY = 'userDB'
+export const STORAGE_KEY_LOGGEDIN = 'user'
+export const STORAGE_KEY = 'userDB'
 
 function query() {
   return storageService.query(STORAGE_KEY)
@@ -45,9 +46,8 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-  const userToSave = { _id: user._id, fullname: user.fullname }
-  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
-  return userToSave
+  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
+  return user
 }
 
 function getEmptyCredentials() {
@@ -58,7 +58,27 @@ function getEmptyCredentials() {
   }
 }
 
-function updateFullname() {}
+function updateUserDetails(user) {
+  console.log(user)
+  return storageService.get(STORAGE_KEY, user._id).then((prevUser) => {
+    const { _id, username, password } = prevUser
+    console.log(prevUser)
+
+    const userToSave = {
+      username,
+      password,
+      _id: prevUser._id,
+      fullname: user.fullname,
+      color: user.color || 'black',
+      backgroundColor: user.backgroundColor || 'white',
+      activities: user.activities || [],
+    }
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
+    storageService.put(STORAGE_KEY, userToSave)
+
+    return Promise.resolve(userToSave)
+  })
+}
 
 // signup({username: 'muki', password: 'muki1', fullname: 'Muki Ja'})
 // login({username: 'muki', password: 'muki1'})

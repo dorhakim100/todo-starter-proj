@@ -19,7 +19,9 @@ export function TodoIndex() {
 
   const dispatch = useDispatch()
   const todos = useSelector((state) => state.todos)
-  console.log(todos)
+  // console.log(todos)
+  const user = useSelector((state) => state.loggedInUser)
+  console.log(user)
 
   const isLoading = useSelector((state) => state.isLoading)
 
@@ -112,7 +114,13 @@ export function TodoIndex() {
 
   if (isLoading) return <Loader />
   return (
-    <section className='todo-index'>
+    <section
+      className='todo-index'
+      style={{
+        color: `${user.color}`,
+        backgroundColor: `${user.backgroundColor}`,
+      }}
+    >
       <TodoFilter filterBy={filterBy} />
       <div>
         <Link to='/todo/edit' className='btn'>

@@ -42,7 +42,8 @@ export function LoginSignup({ onSetUser }) {
           })
       : login(credentials)
           .then((data) => {
-            onSetUser(data.loggedinUser)
+            console.log(data)
+            onSetUser(data)
           })
           .then(() => {
             showSuccessMsg('Logged in successfully')

@@ -15,6 +15,8 @@ export const SET_USER = 'SET_USER'
 
 export const SET_FILTER = 'SET_FILTER'
 
+export const UPDATE_USER = 'UPDATE_USER'
+
 const initialState = {
   todos: [],
   isLoading: true,
@@ -78,6 +80,14 @@ function appReducer(state = initialState, action = {}) {
       return { ...state, isLoading: action.newIsLoading }
     case SET_FILTER:
       return { ...state, filterBy: action.newFilter }
+    case UPDATE_USER:
+      console.log(state)
+      console.log(action)
+      // var loggedInUser = action.loggedInUser
+      return { ...state, loggedInUser: action.updatedUser }
+    case SET_USER:
+      console.log(action.loggedinUser)
+      return { ...state, loggedInUser: action.loggedinUser }
     default:
       return state
   }

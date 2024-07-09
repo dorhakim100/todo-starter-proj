@@ -67,7 +67,6 @@ export function AppHeader() {
 
   function onSetUser(user) {
     setUser(user)
-    // console.log(user)
     navigate(`/`)
   }
 

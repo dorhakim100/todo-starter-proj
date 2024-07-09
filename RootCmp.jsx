@@ -3,6 +3,9 @@ const { Routes, Route } = ReactRouterDOM
 
 const { Provider } = ReactRedux
 
+// const { useSelector, useDispatch } = ReactRedux
+// const { useRef, useState, useEffect } = React
+
 import { store } from './store/store.js'
 
 import { AppHeader } from './cmps/AppHeader.jsx'
@@ -17,6 +20,13 @@ import { Dashboard } from './pages/Dashboard.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 
 export function RootCmp() {
+  // const user = useSelector((state) => state.loggedInUser)
+  // // const bodyRef = useRef()
+  // const [bodyRef, setBodyRef] = useState(useRef(user))
+
+  // useEffect(() => {
+  //   setBodyRef(user)
+  // }, [user])
   return (
     <Provider store={store}>
       <Router>
