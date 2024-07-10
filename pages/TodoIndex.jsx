@@ -1,4 +1,4 @@
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useSelector, useDispatch } = ReactRedux
 const { Link, useSearchParams } = ReactRouterDOM
 
@@ -10,6 +10,8 @@ import { TodoList } from '../cmps/TodoList.jsx'
 import { DataTable } from '../cmps/data-table/DataTable.jsx'
 import { todoService } from '../services/todo.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { utilService } from '../services/util.service.js'
+import { setFilterBy } from '../store/todo.actions.js'
 
 import { Loader } from './Loader.jsx'
 import { swal } from '../lib/swal.js'
@@ -33,6 +35,8 @@ export function TodoIndex() {
   // const [filterBy, setFilterBy] = useState(defaultFilter)
   const filterBy = useSelector((state) => state.filterBy)
 
+  const debouncedSetFilter = useRef(utilService.debounce(onSetFilterBy, 500))
+
   useEffect(() => {
     setSearchParams(filterBy)
     // todoService.query(filterBy)
@@ -50,6 +54,12 @@ export function TodoIndex() {
       })
       .catch((err) => showErrorMsg('Error'))
   }, [filterBy])
+
+  function onSetFilterBy(filterByToEdit) {
+    // filterBy = filterByToEdit
+    // console.log('filterBy:', filterBy)
+    setFilterBy(filterByToEdit)
+  }
 
   function onRemoveTodo(todoId) {
     Swal.fire({
@@ -116,12 +126,17 @@ export function TodoIndex() {
   return (
     <section
       className='todo-index'
-      style={{
-        color: `${user.color}`,
-        backgroundColor: `${user.backgroundColor}`,
-      }}
+      style={
+        user && {
+          color: `${user.color}`,
+          backgroundColor: `${user.backgroundColor}`,
+        }
+      }
     >
-      <TodoFilter filterBy={filterBy} />
+      <TodoFilter
+        filterBy={filterBy}
+        onSetFilterBy={debouncedSetFilter.current}
+      />
       <div>
         <Link to='/todo/edit' className='btn'>
           Add Todo

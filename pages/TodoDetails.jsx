@@ -52,9 +52,11 @@ export function TodoDetails() {
           ? ' high-importance'
           : undefined)
       }
-      style={{
-        color: `${user.color}`,
-      }}
+      style={
+        user && {
+          color: `${user.color || 'black'}`,
+        }
+      }
     >
       <h1 className={todo.isDone ? 'done' : ''}>{todo.txt}</h1>
       <h2>{todo.isDone ? 'Done!' : 'In your list'}</h2>

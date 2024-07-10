@@ -3,7 +3,7 @@ const { useSelector, useDispatch } = ReactRedux
 
 import { setFilterBy } from '../store/todo.actions.js'
 
-export function TodoFilter({ filterBy }) {
+export function TodoFilter({ filterBy, onSetFilterBy }) {
   const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
   const allSortButtonRef = useRef()
@@ -19,8 +19,10 @@ export function TodoFilter({ filterBy }) {
 
   useEffect(() => {
     // Notify parent
-    filterBy = filterByToEdit
-    setFilterBy(filterBy)
+    // filterBy = filterByToEdit
+    // setFilterBy(filterBy)
+    console.log(filterBy)
+    onSetFilterBy(filterByToEdit)
   }, [filterByToEdit])
 
   function handleChange({ target }) {

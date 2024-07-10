@@ -42,10 +42,12 @@ export function UserDetails() {
 
   return (
     <section
-      style={{
-        color: `${user.color}`,
-        backgroundColor: `${user.backgroundColor}`,
-      }}
+      style={
+        user && {
+          color: `${user.color}`,
+          backgroundColor: `${user.backgroundColor}`,
+        }
+      }
     >
       <h2>{`${userData.fullname}`}</h2>
       <form className='profile-adjust-container'>
