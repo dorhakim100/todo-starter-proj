@@ -1,15 +1,15 @@
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
 
-import { login } from '../store/user.actions.js'
-import { signup } from '../store/user.actions.js'
+import { login } from '../store/actions/user.actions.js'
+import { signup } from '../store/actions/user.actions.js'
 
 const { useState } = React
 const { useSelector, useDispatch } = ReactRedux
 const { useParams, useNavigate, Link } = ReactRouterDOM
 
 export function LoginSignup({ onSetUser }) {
-  const user = useSelector((state) => state.loggedInUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
 
   const [isSignup, setIsSignUp] = useState(user)
   const [credentials, setCredentials] = useState(

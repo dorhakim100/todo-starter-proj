@@ -7,15 +7,15 @@ import { userService } from '../services/user.service.js'
 import { UserMsg } from './UserMsg.jsx'
 import { LoginSignup } from './LoginSignup.jsx'
 import { showErrorMsg } from '../services/event-bus.service.js'
-import { loadTodos } from '../store/todo.actions.js'
+import { loadTodos } from '../store/actions/todo.actions.js'
 
-import { login } from '../store/user.actions.js'
-import { signup } from '../store/user.actions.js'
-import { logout } from '../store/user.actions.js'
+import { login } from '../store/actions/user.actions.js'
+import { signup } from '../store/actions/user.actions.js'
+import { logout } from '../store/actions/user.actions.js'
 
 export function AppHeader() {
   const dispatch = useDispatch()
-  const todos = useSelector((state) => state.todos)
+  const todos = useSelector((storeState) => storeState.todosModule.todos)
   const allTodos = todos
 
   const navigate = useNavigate()
@@ -43,7 +43,7 @@ export function AppHeader() {
       (barWidth * doneTodos.length) / todos.length + 'px'
     // setWidth((barWidth * doneTodos.length) / todos.length)
     // })
-  }, [todos.length, todos])
+  }, [todos])
 
   const displayWidth = Math.floor(pixelRatio * width)
 

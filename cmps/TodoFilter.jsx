@@ -1,7 +1,7 @@
 const { useState, useEffect, useRef } = React
 const { useSelector, useDispatch } = ReactRedux
 
-import { setFilterBy } from '../store/todo.actions.js'
+import { setFilterBy } from '../store/actions/todo.actions.js'
 
 export function TodoFilter({ filterBy, onSetFilterBy }) {
   const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })

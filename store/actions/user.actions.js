@@ -1,5 +1,6 @@
 import { userService } from '../services/user.service.js'
-import { SET_USER, UPDATE_USER, store } from './store.js'
+import { store } from './store.js'
+import { SET_USER, UPDATE_USER } from '../reducers/user.reducer.js'
 import { storageService } from '../services/async-storage.service.js'
 
 export function signup(credentials) {
@@ -10,11 +11,8 @@ export function signup(credentials) {
 
 export function login(credentials) {
   return userService.login(credentials).then((loggedinUser) => {
-    // return storageService.get('userDB', loggedinUser._id).then((user) => {
-    console.log(loggedinUser)
     store.dispatch({ type: SET_USER, loggedinUser })
     return loggedinUser
-    // })
   })
 }
 

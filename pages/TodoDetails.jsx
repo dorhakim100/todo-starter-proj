@@ -4,7 +4,10 @@ const { useParams, useNavigate, Link } = ReactRouterDOM
 
 import { todoService } from '../services/todo.service.js'
 import { showErrorMsg } from '../services/event-bus.service.js'
-import { setIsLoadingFalse, setIsLoadingTrue } from '../store/todo.actions.js'
+import {
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+} from '../store/actions/todo.actions.js'
 
 import { Loader } from './Loader.jsx'
 
@@ -13,8 +16,8 @@ export function TodoDetails() {
   const params = useParams()
   const navigate = useNavigate()
 
-  const isLoading = useSelector((state) => state.isLoading)
-  const user = useSelector((state) => state.loggedInUser)
+  const todos = useSelector((storeState) => storeState.todosModule.isLoading)
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
 
   useEffect(() => {
     loadTodo().then(() => {

@@ -2,8 +2,15 @@ const { useState, useEffect, useRef } = React
 const { useSelector, useDispatch } = ReactRedux
 const { Link, useSearchParams } = ReactRouterDOM
 
-import { loadTodos, removeTodo, saveTodo } from '../store/todo.actions.js'
-import { setIsLoadingFalse, setIsLoadingTrue } from '../store/todo.actions.js'
+import {
+  loadTodos,
+  removeTodo,
+  saveTodo,
+} from '../store/actions/todo.actions.js'
+import {
+  setIsLoadingFalse,
+  setIsLoadingTrue,
+} from '../store/actions/todo.actions.js'
 
 import { TodoFilter } from '../cmps/TodoFilter.jsx'
 import { TodoList } from '../cmps/TodoList.jsx'
@@ -11,7 +18,7 @@ import { DataTable } from '../cmps/data-table/DataTable.jsx'
 import { todoService } from '../services/todo.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { utilService } from '../services/util.service.js'
-import { setFilterBy } from '../store/todo.actions.js'
+import { setFilterBy } from '../store/actions/todo.actions.js'
 
 import { Loader } from './Loader.jsx'
 import { swal } from '../lib/swal.js'
@@ -20,12 +27,12 @@ export function TodoIndex() {
   // const [todos, setTodos] = useState(null)
 
   const dispatch = useDispatch()
-  const todos = useSelector((state) => state.todos)
+  const todos = useSelector((storeState) => storeState.todosModule.todos)
   // console.log(todos)
-  const user = useSelector((state) => state.loggedInUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   console.log(user)
 
-  const isLoading = useSelector((state) => state.isLoading)
+  const isLoading = useSelector((storeState) => storeState.userModule.isLoading)
 
   // Special hook for accessing search-params:
   const [searchParams, setSearchParams] = useSearchParams()
@@ -33,7 +40,7 @@ export function TodoIndex() {
   const defaultFilter = todoService.getFilterFromSearchParams(searchParams)
 
   // const [filterBy, setFilterBy] = useState(defaultFilter)
-  const filterBy = useSelector((state) => state.filterBy)
+  const filterBy = useSelector((storeState) => storeState.todosModule.filterBy)
 
   const debouncedSetFilter = useRef(utilService.debounce(onSetFilterBy, 500))
 

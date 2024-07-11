@@ -68,10 +68,10 @@ function remove(todoId) {
       loggedInUser.activities = []
     }
     loggedInUser.activities.push(`Removed Todo ${todoId} at ${new Date()}`)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
+    userService.updateUserDetails(loggedInUser)
   }
-  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
 
-  userService.updateUserDetails(loggedInUser)
   return storageService.remove(TODO_KEY, todoId)
 }
 
@@ -86,18 +86,22 @@ function save(todo) {
   if (todo._id) {
     // TODO - updatable fields
     todo.updatedAt = Date.now()
-    loggedInUser.activities.push(`Updated Todo ${todo._id} at ${new Date()}`)
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
+    if (loggedInUser) {
+      loggedInUser.activities.push(`Updated Todo ${todo._id} at ${new Date()}`)
+      sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
 
-    userService.updateUserDetails(loggedInUser)
+      userService.updateUserDetails(loggedInUser)
+    }
     return storageService.put(TODO_KEY, todo)
   } else {
     todo.createdAt = todo.updatedAt = Date.now()
 
-    loggedInUser.activities.push(`Created Todo at ${new Date()}`)
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
+    if (loggedInUser) {
+      loggedInUser.activities.push(`Created Todo at ${new Date()}`)
+      sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(loggedInUser))
 
-    userService.updateUserDetails(loggedInUser)
+      userService.updateUserDetails(loggedInUser)
+    }
     return storageService.post(TODO_KEY, todo)
   }
 }

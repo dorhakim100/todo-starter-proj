@@ -3,7 +3,11 @@ const { useSelector, useDispatch } = ReactRedux
 import { todoService } from '../services/todo.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
-import { loadTodos, removeTodo, saveTodo } from '../store/todo.actions.js'
+import {
+  loadTodos,
+  removeTodo,
+  saveTodo,
+} from '../store/actions/todo.actions.js'
 
 const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
@@ -13,7 +17,7 @@ export function TodoEdit() {
   const navigate = useNavigate()
   const params = useParams()
 
-  const filterBy = useSelector((state) => state.filterBy)
+  const filterBy = useSelector((storeState) => storeState.todosModule.filterBy)
 
   useEffect(() => {
     if (params.todoId) loadTodo()

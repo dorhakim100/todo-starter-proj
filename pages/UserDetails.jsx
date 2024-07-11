@@ -1,11 +1,11 @@
 const { useSelector, useDispatch } = ReactRedux
 const { useRef, useState, useEffect } = React
 
-import { updateUser } from '../store/user.actions.js'
+import { updateUser } from '../store/actions/user.actions.js'
 import { storageService } from '../services/async-storage.service.js'
 
 export function UserDetails() {
-  const user = useSelector((state) => state.loggedInUser)
+  const user = useSelector((storeState) => storeState.userModule.loggedInUser)
   console.log(user)
 
   const [userData, setUserData] = useState([])
